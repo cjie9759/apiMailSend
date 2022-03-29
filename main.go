@@ -13,6 +13,7 @@ import (
 
 func main() {
 	s := flag.String("s", "md5defalut", "get encode value ")
+	flag.Parse()
 	if *s != "md5defalut" {
 		log.Println(hex.EncodeToString(md5.New().Sum([]byte(*s + "cjie"))))
 		return
@@ -63,7 +64,8 @@ func main() {
 func mustGetEnv(name string) string {
 	res, isset := os.LookupEnv(name)
 	if !isset {
-		log.Panicln("no set env ", name)
+		log.Println("no set env ", name)
+		os.Exit(0)
 	}
 	return res
 }
