@@ -1,6 +1,8 @@
 name: build
 on:
   push:
+    # tags-ignore:
+    #   - v*.**
 jobs:
   build:
     name: build
@@ -23,9 +25,10 @@ jobs:
         with:
           go-version: 1.18
       - name: build
-        run: go build apiMailSend-${{ matrix.goos }}-${{ matrix.goarch }} -v ./...
-          ls -al
-      - name: upload
+        run: go build -o apiMailSend-${{ matrix.goos }}-${{ matrix.goarch }} -trimpath -ldflags "-w -s" -v  
+      - name: upload-artifact
         uses: actions/upload-artifact@v3
         with:
-          path: ./apiMailSend
+          name: apiMailSend-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: ./apiMailSend-${{ matrix.goos }}-${{ matrix.goarch }}
+      
