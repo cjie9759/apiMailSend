@@ -19,7 +19,7 @@ type Mail struct {
 	Body string
 }
 
-func Init() {
+func init() {
 	MailDemo = NewMail()
 }
 
